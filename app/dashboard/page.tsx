@@ -43,38 +43,41 @@ const Dashboard = () => {
     <div>
       <h1>Dashboard</h1>
       <p>This is the news dashboard</p>
-      <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4">
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {data.map((article, index) => (
-            <li key={index} className="py-4">
-              <a
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block hover:bg-gray-50 dark:hover:bg-gray-700"
-              >
-                <div className="flex items-center space-x-4">
-                  <img
-                    src={article.urlToImage}
-                    alt={article.title}
-                    height={500}
-                    width={500}
-                    className="w-16 h-16 object-cover rounded-lg"
-                  />
-                  <div>
-                    <h5 className="text-xl font-bold text-gray-900 dark:text-white">
-                      {article.title}
-                    </h5>
-                    <p className="text-gray-700 dark:text-gray-400">
-                      {article.description}
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+  <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 w-4/6">
+    <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+      {data.map((article, index) => (
+        <li key={index} className="py-6">
+          <a
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block hover:bg-gray-50 dark:hover:bg-gray-700 p-4 rounded-lg"
+          >
+            <div className="flex items-center space-x-4">
+              <img
+                src={article.urlToImage}
+                alt={article.title}
+                height={100}
+                width={100}
+                className="w-16 h-16 object-cover rounded-lg"
+              />
+              <div>
+                <h5 className="text-lg font-bold text-gray-900 dark:text-white">
+                  {article.title}
+                </h5>
+                <p className="text-gray-700 dark:text-gray-400">
+                  {article.description}
+                </p>
+              </div>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
 
       <LogoutButton />
     </div>
