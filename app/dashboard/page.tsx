@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import withAuth from "../utils/withAuth";
 import LogoutButton from "../components/LogoutButton";
 import Card from "./components/Card";
+import Loader from "../components/Loading";
 
 const Dashboard = () => {
   const [data, setData] = useState<any[]>([]);
@@ -39,21 +40,31 @@ const Dashboard = () => {
         console.error("Error fetching data:", error.message);
       }
     }
-    fetchData();
+    setTimeout(() => {
+      fetchData();
+    }, 1000);
   });
   return (
     <div>
-      <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center">
-        <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 w-5/6">
-        <p className="text-lg font-semibold text-gray-800 dark:text-white">
-          This is the news dashboard
-        </p>
+      <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center mt-16">
+        <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 w-5/6 flex flex-col gap-8 justify-center items-center">
+          <p className="text-[50px] font-bold text-gray-800 dark:text-white">
+            This is the news dashboard
+          </p>
+          <p className="text-[20px] font-normal text-gray-800 dark:text-white -mt-10">
+            Enjoy your daily digest at one place!
+          </p>
           <button
             onClick={handleToggle}
-            className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 mb-14"
+            className="p-2 bg-blue-500 w-1/6 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 mb-14"
           >
             <p>Toggle view</p>
           </button>
+          {data && (
+            <>
+              <Loader />
+            </>
+          )}
 
           {toggle && (
             <>
@@ -92,7 +103,7 @@ const Dashboard = () => {
 
           {!toggle && (
             <>
-              <div className="grid grid-cols-2">
+              <div className="grid grid-row md:grid-cols-2 lg:grid-cols-2 items-center gap-8">
                 {data.map((data, index) => (
                   <Card
                     key={index}
@@ -105,9 +116,11 @@ const Dashboard = () => {
               </div>
             </>
           )}
+          <div className="w-1/6">
+            <LogoutButton />
+          </div>
         </div>
       </div>
-      <LogoutButton />
     </div>
   );
 };
