@@ -6,10 +6,12 @@ import withAuth from "../utils/withAuth";
 import LogoutButton from "../components/LogoutButton";
 import Card from "./components/Card";
 import Loader from "../components/Loading";
+import Link from "next/link";
 
 const Dashboard = () => {
   const [data, setData] = useState<any[]>([]);
   const [toggle, setToggle] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const handleToggle = () => {
     setToggle(!toggle);
@@ -35,14 +37,13 @@ const Dashboard = () => {
 
         const responseData = await response.json();
         setData(responseData.articles);
+        setLoading(false);
         console.log(data);
       } catch (error: any) {
         console.error("Error fetching data:", error.message);
       }
     }
-    setTimeout(() => {
-      fetchData();
-    }, 1000);
+    fetchData();
   });
   return (
     <div>
@@ -60,58 +61,66 @@ const Dashboard = () => {
           >
             <p>Toggle view</p>
           </button>
-          {data && (
+          {loading && !data && (
             <>
               <Loader />
             </>
           )}
 
-          {toggle && (
+          {toggle && !loading && (
             <>
               <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                 {data.map((article, index) => (
-                  <li key={index} className="py-6">
-                    <a
-                      href={article.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block hover:bg-gray-50 dark:hover:bg-gray-700 p-4 rounded-lg"
-                    >
-                      <div className="flex items-center space-x-4">
-                        <img
-                          src={article.urlToImage}
-                          alt={article.title}
-                          height={100}
-                          width={100}
-                          className="w-16 h-16 object-cover rounded-lg"
-                        />
-                        <div>
-                          <h5 className="text-lg font-bold text-gray-900 dark:text-white">
-                            {article.title}
-                          </h5>
-                          <p className="text-gray-700 dark:text-gray-400">
-                            {article.description}
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
+                  <>
+                    <Link href={`/dashboard/newsDetails/${index}`}>
+                      <li key={index} className="py-6">
+                        <a
+                          href={article.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block hover:bg-gray-50 dark:hover:bg-gray-700 p-4 rounded-lg"
+                        >
+                          <div className="flex items-center space-x-4">
+                            <img
+                              src={article.urlToImage}
+                              alt={article.title}
+                              height={100}
+                              width={100}
+                              className="w-16 h-16 object-cover rounded-lg"
+                            />
+                            <div>
+                              <h5 className="text-lg font-bold text-gray-900 dark:text-white">
+                                {article.title}
+                              </h5>
+                              <p className="text-gray-700 dark:text-gray-400">
+                                {article.description}
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                    </Link>
+                  </>
                 ))}
               </ul>
             </>
           )}
 
-          {!toggle && (
+          {!toggle && !loading && (
             <>
               <div className="grid grid-row md:grid-cols-2 lg:grid-cols-2 items-center gap-8">
                 {data.map((data, index) => (
-                  <Card
-                    key={index}
-                    title={data.title}
-                    description={data.description}
-                    url={data.url}
-                    urlToImage={data.urlToImage}
-                  />
+                  <>
+                    <Link href={`/dashboard/newsDetails/${index}`}>
+                      <Card
+                        key={index}
+                        title={data.title}
+                        description={data.description}
+                        url={data.url}
+                        urlToImage={data.urlToImage}
+                      />
+                    </Link>
+                  </>
                 ))}
               </div>
             </>
