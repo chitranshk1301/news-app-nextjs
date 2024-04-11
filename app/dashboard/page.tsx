@@ -26,7 +26,7 @@ const Dashboard = () => {
       const url =
         "https://newsapi.org/v2/top-headlines?" +
         "country=us&" +
-        "apiKey=a973d6acb0334946a7c83934141c6fd5";
+        "apiKey=ca7292f2afcb4992af825c06a0db90df";
 
       try {
         const response = await fetch(url);
