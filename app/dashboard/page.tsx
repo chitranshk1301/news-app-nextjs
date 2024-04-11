@@ -61,11 +61,11 @@ const Dashboard = () => {
           >
             <p>Toggle view</p>
           </button>
-          {loading && !data && (
+{/*           {loading && !data && (
             <>
               <Loader />
             </>
-          )}
+          )} */}
 
           {toggle && !loading && (
             <>
