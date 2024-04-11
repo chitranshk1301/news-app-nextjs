@@ -61,13 +61,8 @@ const Dashboard = () => {
           >
             <p>Toggle view</p>
           </button>
-{/*           {loading && !data && (
-            <>
-              <Loader />
-            </>
-          )} */}
 
-          {toggle && !loading && (
+          {toggle && (
             <>
               <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                 {data.map((article, index) => (
@@ -106,7 +101,7 @@ const Dashboard = () => {
             </>
           )}
 
-          {!toggle && !loading && (
+          {!toggle && (
             <>
               <div className="grid grid-row md:grid-cols-2 lg:grid-cols-2 items-center gap-8">
                 {data.map((data, index) => (
